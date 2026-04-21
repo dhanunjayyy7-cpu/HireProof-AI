@@ -71,7 +71,7 @@ const Index = () => {
           <div className="max-w-3xl mx-auto text-center animate-fade-in-up">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-background/80 backdrop-blur border border-border shadow-soft mb-6">
               <Sparkles className="w-3.5 h-3.5 text-brand" />
-              <span className="text-xs font-semibold text-foreground">AI-powered scam investigation · Free for students</span>
+              <span className="text-[11px] md:text-xs font-semibold text-foreground uppercase tracking-[0.18em]">AI-Powered Scam Investigation · Free For Students</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground text-balance leading-[1.05]">
@@ -79,7 +79,7 @@ const Index = () => {
             </h1>
 
             <p className="mt-6 text-base md:text-xl text-muted-foreground max-w-2xl mx-auto text-balance">
-              Every month thousands of Indian students lose money, time, and trust to fake internships and ghost recruiters. JobGuard checks any opportunity in 10 seconds — before you click apply.
+              Every month thousands of Indian students lose money, time, and trust to fake internships and ghost recruiters. HireProof checks any opportunity in 10 seconds — before you click apply.
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -94,10 +94,10 @@ const Index = () => {
               </Button>
             </div>
 
-            <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-success" /> No signup</div>
-              <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-success" /> Built for India</div>
-              <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-success" /> 100% free</div>
+            <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs md:text-sm text-muted-foreground uppercase tracking-[0.18em] font-semibold">
+              <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-success" /> No Signup</div>
+              <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-success" /> Built For India</div>
+              <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-success" /> 100% Free</div>
             </div>
           </div>
         </div>
@@ -107,12 +107,12 @@ const Index = () => {
       <section id="why" className="py-20 md:py-28">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center mb-14 md:mb-20">
-            <p className="text-sm font-semibold uppercase tracking-wider text-brand mb-3">Why this exists</p>
+            <p className="text-xs md:text-sm font-semibold uppercase tracking-[0.22em] text-brand mb-3">Why This Exists</p>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground text-balance">
               The 4 scams quietly draining India's job seekers
             </h2>
             <p className="mt-4 text-muted-foreground md:text-lg">
-              We built JobGuard after seeing too many students lose ₹5,000–₹50,000 to opportunities that never existed.
+              We built HireProof after seeing too many students lose ₹5,000–₹50,000 to opportunities that never existed.
             </p>
           </div>
 
@@ -138,7 +138,7 @@ const Index = () => {
       <section id="how" className="py-20 md:py-28 bg-muted/40 border-y border-border/50">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center mb-14 md:mb-20">
-            <p className="text-sm font-semibold uppercase tracking-wider text-brand mb-3">How it works</p>
+            <p className="text-xs md:text-sm font-semibold uppercase tracking-[0.22em] text-brand mb-3">How It Works</p>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground text-balance">
               Three steps. Ten seconds. Total clarity.
             </h2>
@@ -177,6 +177,33 @@ const Index = () => {
               </Link>
             </Button>
           </div>
+        </div>
+      </section>
+
+      {/* Bottom-left brand mark */}
+      <section className="border-t border-border/60 bg-gradient-hero">
+        <div className="container py-14 md:py-20 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="flex items-center gap-4 group">
+            <div className="relative">
+              <div className="absolute inset-0 bg-brand/20 blur-2xl rounded-full opacity-60 group-hover:opacity-90 transition-opacity" />
+              <img
+                src={(new URL('../assets/hireproof-logo.png', import.meta.url)).href}
+                alt="HireProof"
+                className="relative w-16 h-16 md:w-20 md:h-20 object-contain"
+              />
+            </div>
+            <div>
+              <p className="text-3xl md:text-5xl font-bold tracking-tight text-foreground leading-none">
+                Hire<span className="text-brand">Proof</span>
+              </p>
+              <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-md">
+                Built in India · Trusted by students, freshers, and job seekers.
+              </p>
+            </div>
+          </div>
+          <p className="text-xs md:text-sm uppercase tracking-[0.22em] font-semibold text-muted-foreground">
+            © {new Date().getFullYear()} HireProof
+          </p>
         </div>
       </section>
 
