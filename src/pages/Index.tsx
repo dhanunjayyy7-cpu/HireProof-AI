@@ -11,25 +11,25 @@ const scams = [
   {
     icon: BadgeCheck,
     title: "Fake Certification Scams",
-    desc: "₹2,500 'mandatory training' for an internship that never starts. The certificate is worthless and the company vanishes.",
+    desc: "Pay ₹2,500 today, receive a useless certificate tomorrow, and never hear from them again.",
     tone: "danger",
   },
   {
     icon: Database,
     title: "Data Harvesting Scams",
-    desc: "Aadhaar, PAN, and bank details collected before any interview — sold on Telegram or used for loan fraud in your name.",
+    desc: "They ask for Aadhaar, PAN, and bank details before interviews, then misuse or sell your data.",
     tone: "warning",
   },
   {
     icon: TrendingUp,
     title: "Unrealistic Salary Traps",
-    desc: "₹12 LPA fresher offers with no interview. The bait that funnels students into MLM, crypto laundering, or upfront 'kits'.",
+    desc: "₹12 LPA for freshers with no interview. The offer sounds exciting because the trap is designed that way.",
     tone: "danger",
   },
   {
     icon: Building2,
     title: "Ghost Companies",
-    desc: "Shiny website, fake LinkedIn page, no MCA registration. By the time you realize it, your money and time are gone.",
+    desc: "Fake websites, fake LinkedIn pages, fake recruiters. By the time you realize it, your chance is gone.",
     tone: "warning",
   },
 ];
@@ -37,18 +37,18 @@ const scams = [
 const steps = [
   {
     icon: Clipboard,
-    title: "Paste job text or URL",
-    desc: "Drop the WhatsApp message, email, or job listing link. No signup. No friction.",
+    title: "Paste Job Text or URL",
+    desc: "Drop any job post, recruiter message, WhatsApp text, or hiring link. No signup. No confusion.",
   },
   {
     icon: Brain,
-    title: "AI investigates 40+ signals",
-    desc: "Salary realism, fee patterns, recruiter footprint, urgency tactics, ID requests — all analyzed in seconds.",
+    title: "AI Investigates 40+ Signals",
+    desc: "We scan salary claims, urgency tactics, recruiter behavior, fee demands, trust signals, and hidden risks.",
   },
   {
     icon: ShieldAlert,
-    title: "Get a clear verdict instantly",
-    desc: "Trust score, red flags, and a shareable report. Forward it to your friends before they click.",
+    title: "Get a Clear Verdict Instantly",
+    desc: "Receive trust score, red flags, and next-step guidance you can share before anyone gets trapped.",
   },
 ];
 

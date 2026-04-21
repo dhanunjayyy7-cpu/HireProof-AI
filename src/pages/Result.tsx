@@ -65,7 +65,7 @@ const Result = () => {
     return `${result.summary}
 
 ──────────────
-Analyzed using JobGuard — free AI platform helping users avoid scams, save time, and make smarter career decisions.`;
+Analyzed using HireProof — free AI platform helping users avoid scams, save time, and make smarter career decisions.`;
   }, [result]);
 
   const copy = async () => {
@@ -229,7 +229,7 @@ Analyzed using JobGuard — free AI platform helping users avoid scams, save tim
               <p className="text-background/95 leading-relaxed whitespace-pre-line">{result.summary}</p>
               <div className="mt-5 pt-5 border-t border-background/15">
                 <p className="text-sm text-background/70 leading-relaxed">
-                  Analyzed using <span className="font-semibold text-background">JobGuard</span> — free AI platform helping users avoid scams, save time, and make smarter career decisions.
+                  Analyzed using <span className="font-semibold text-background">HireProof</span> — free AI platform helping users avoid scams, save time, and make smarter career decisions.
                 </p>
               </div>
             </div>

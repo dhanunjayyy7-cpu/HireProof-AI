@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import { Logo } from "./Logo";
-import { Button } from "@/components/ui/button";
+import logo from "@/assets/hireproof-logo.png";
 
 const links = [
   { label: "Why This Exists", href: "#why" },
@@ -17,7 +16,7 @@ export const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
@@ -37,58 +36,86 @@ export const Navbar = () => {
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/80 backdrop-blur-xl border-b border-border/60 shadow-soft"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="container flex items-center justify-between h-16 md:h-20">
-        <Logo />
+    <header className="fixed top-3 md:top-5 left-0 right-0 z-50 px-3 md:px-6 pointer-events-none">
+      <div
+        className={`pointer-events-auto mx-auto max-w-5xl rounded-full transition-all duration-500 ease-out ${
+          scrolled
+            ? "bg-[#111111] shadow-[0_8px_30px_rgba(0,0,0,0.18)] h-14"
+            : "bg-[#F2F2F2] h-16 md:h-[68px]"
+        }`}
+      >
+        <div className="h-full flex items-center justify-between pl-4 pr-3 md:pl-6 md:pr-3">
+          {/* Brand */}
+          <button
+            onClick={() => navigate("/")}
+            className="flex items-center gap-2.5 group"
+            aria-label="HireProof home"
+          >
+            <img
+              src={logo}
+              alt="HireProof"
+              className={`object-contain transition-all duration-500 ${
+                scrolled ? "w-7 h-7" : "w-8 h-8 md:w-9 md:h-9"
+              }`}
+            />
+            <span
+              className={`font-bold tracking-tight transition-all duration-500 ${
+                scrolled ? "text-base text-white" : "text-lg md:text-xl text-[#111111]"
+              }`}
+              style={{ fontFamily: "Inter, ui-sans-serif, system-ui" }}
+            >
+              HireProof
+            </span>
+          </button>
 
-        <nav className="hidden md:flex items-center gap-1">
-          {links.map((l) =>
-            l.primary ? (
-              <Button
-                key={l.label}
-                onClick={() => handleNav(l.href)}
-                className="ml-2 rounded-full bg-foreground hover:bg-foreground/90 text-background px-5 h-10 font-medium shadow-soft"
-              >
-                {l.label}
-              </Button>
-            ) : (
-              <button
-                key={l.label}
-                onClick={() => handleNav(l.href)}
-                className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-full transition-colors"
-              >
-                {l.label}
-              </button>
-            )
-          )}
-        </nav>
+          {/* Desktop menu */}
+          <nav className="hidden md:flex items-center gap-1.5">
+            {links.map((l) => {
+              const isCTA = scrolled && l.primary;
+              return (
+                <button
+                  key={l.label}
+                  onClick={() => handleNav(l.href)}
+                  className={`text-sm transition-all duration-500 rounded-full ${
+                    isCTA
+                      ? "bg-white text-[#111111] font-bold px-5 py-2 hover:bg-white/90 shadow-soft"
+                      : scrolled
+                      ? "text-white font-semibold px-4 py-2 hover:text-white/80"
+                      : "text-[#111111] font-semibold px-4 py-2 hover:text-[#111111]/70"
+                  }`}
+                  style={{ fontFamily: "Inter, ui-sans-serif, system-ui" }}
+                >
+                  {l.label}
+                </button>
+              );
+            })}
+          </nav>
 
-        <button
-          className="md:hidden p-2 -mr-2 text-foreground"
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
-        >
-          {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+          {/* Mobile toggle */}
+          <button
+            className={`md:hidden p-2 rounded-full transition-colors ${
+              scrolled ? "text-white" : "text-[#111111]"
+            }`}
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle menu"
+          >
+            {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
+      {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-xl animate-fade-in">
-          <div className="container py-4 flex flex-col gap-1">
+        <div className="pointer-events-auto md:hidden mx-auto max-w-5xl mt-2 rounded-3xl bg-background/95 backdrop-blur-xl border border-border shadow-card animate-fade-in">
+          <div className="p-3 flex flex-col gap-1">
             {links.map((l) => (
               <button
                 key={l.label}
                 onClick={() => handleNav(l.href)}
-                className={`text-left px-4 py-3 rounded-xl font-medium transition-colors ${
+                className={`text-left px-4 py-3 rounded-2xl font-semibold transition-colors ${
                   l.primary
                     ? "bg-foreground text-background"
-                    : "text-muted-foreground hover:bg-muted"
+                    : "text-foreground hover:bg-muted"
                 }`}
               >
                 {l.label}

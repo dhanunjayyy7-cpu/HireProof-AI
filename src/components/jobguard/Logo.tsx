@@ -1,16 +1,31 @@
-import { ShieldCheck } from "lucide-react";
 import { Link } from "react-router-dom";
+import logo from "@/assets/hireproof-logo.png";
 
-export const Logo = ({ className = "" }: { className?: string }) => (
-  <Link to="/" className={`flex items-center gap-2 group ${className}`}>
-    <div className="relative">
-      <div className="absolute inset-0 bg-gradient-brand rounded-xl blur-md opacity-40 group-hover:opacity-60 transition-opacity" />
-      <div className="relative w-9 h-9 rounded-xl bg-gradient-brand flex items-center justify-center shadow-soft">
-        <ShieldCheck className="w-5 h-5 text-brand-foreground" strokeWidth={2.5} />
-      </div>
-    </div>
-    <span className="text-xl font-bold tracking-tight text-foreground">
-      Job<span className="text-gradient">Guard</span>
-    </span>
-  </Link>
-);
+interface LogoProps {
+  className?: string;
+  size?: "sm" | "lg";
+  textClassName?: string;
+  accentClassName?: string;
+}
+
+export const Logo = ({
+  className = "",
+  size = "sm",
+  textClassName,
+  accentClassName,
+}: LogoProps) => {
+  const dims = size === "lg" ? "w-12 h-12 md:w-14 md:h-14" : "w-9 h-9";
+  const text = size === "lg" ? "text-3xl md:text-4xl" : "text-xl";
+  return (
+    <Link to="/" className={`flex items-center gap-2.5 group ${className}`}>
+      <img
+        src={logo}
+        alt="HireProof logo"
+        className={`${dims} object-contain transition-transform group-hover:scale-105`}
+      />
+      <span className={`${text} font-bold tracking-tight ${textClassName ?? "text-foreground"}`}>
+        Hire<span className={accentClassName ?? "text-brand"}>Proof</span>
+      </span>
+    </Link>
+  );
+};
