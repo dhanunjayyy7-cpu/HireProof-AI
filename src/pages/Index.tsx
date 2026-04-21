@@ -108,7 +108,7 @@ const Index = () => {
       <section id="why" className="py-20 md:py-28">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center mb-14 md:mb-20">
-            <p className="text-xs md:text-sm font-semibold uppercase tracking-[0.22em] text-brand mb-3">Why This Exists</p>
+            <p className="text-sm md:text-base font-semibold uppercase tracking-[0.42em] text-brand mb-4">— Why This Exists —</p>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground text-balance">
               The 4 scams quietly draining India's job seekers
             </h2>
@@ -139,7 +139,7 @@ const Index = () => {
       <section id="how" className="py-20 md:py-28 bg-muted/40 border-y border-border/50">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center mb-14 md:mb-20">
-            <p className="text-xs md:text-sm font-semibold uppercase tracking-[0.22em] text-brand mb-3">How It Works</p>
+            <p className="text-sm md:text-base font-semibold uppercase tracking-[0.42em] text-brand mb-4">— How It Works —</p>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground text-balance">
               Three steps. Ten seconds. Total clarity.
             </h2>
@@ -152,10 +152,7 @@ const Index = () => {
                 className="relative p-7 md:p-8 rounded-3xl bg-card border border-border/70 shadow-soft animate-fade-in-up"
                 style={{ animationDelay: `${i * 100}ms` }}
               >
-                <div className="absolute -top-4 left-7 w-9 h-9 rounded-full bg-foreground text-background flex items-center justify-center text-sm font-bold shadow-soft">
-                  {i + 1}
-                </div>
-                <div className="w-12 h-12 rounded-2xl bg-brand-soft text-brand flex items-center justify-center mb-5 mt-3">
+                <div className="w-12 h-12 rounded-2xl bg-brand-soft text-brand flex items-center justify-center mb-5">
                   <s.icon className="w-6 h-6" strokeWidth={2.2} />
                 </div>
                 <h3 className="text-xl font-semibold text-foreground mb-2">{s.title}</h3>
@@ -187,11 +184,9 @@ const Index = () => {
           <div className="flex items-center gap-4 group">
             <div className="relative">
               <div className="absolute inset-0 bg-brand/20 blur-2xl rounded-full opacity-60 group-hover:opacity-90 transition-opacity" />
-              <img
-                src={logo}
-                alt="HireProof"
-                className="relative w-16 h-16 md:w-20 md:h-20 object-contain"
-              />
+              <span className="relative flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden bg-white ring-1 ring-border shadow-soft">
+                <img src={logo} alt="HireProof" className="w-full h-full object-cover" />
+              </span>
             </div>
             <div>
               <p className="text-3xl md:text-5xl font-bold tracking-tight text-foreground leading-none">

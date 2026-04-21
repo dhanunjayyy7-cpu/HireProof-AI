@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ShieldCheck, ShieldAlert, ShieldX, Copy, Check, ArrowLeft,
-  AlertTriangle, TrendingUp, Sparkles, ArrowRight,
+  AlertTriangle, TrendingUp, Sparkles, ArrowRight, Compass,
 } from "lucide-react";
 import { Logo } from "@/components/jobguard/Logo";
 import { Button } from "@/components/ui/button";
@@ -211,6 +211,21 @@ Analyzed using HireProof — free AI platform helping users avoid scams, save ti
               </table>
             </div>
           </div>
+
+          {/* RECOMMENDATION */}
+          {result.recommendation && (
+            <div className="max-w-5xl mx-auto mt-6 p-6 md:p-7 rounded-3xl bg-card border border-border/70 shadow-soft animate-fade-in-up" style={{ animationDelay: "175ms" }}>
+              <div className="flex items-center gap-3">
+                <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${v.bg} ${v.text}`}>
+                  <Compass className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">Recommendation</p>
+                  <p className={`text-xl md:text-2xl font-bold ${v.text}`}>{result.recommendation}</p>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* SECTION 5 — Shareable Result */}
           <div className="max-w-5xl mx-auto mt-6 rounded-3xl bg-foreground text-background p-7 md:p-8 shadow-card animate-fade-in-up" style={{ animationDelay: "200ms" }}>

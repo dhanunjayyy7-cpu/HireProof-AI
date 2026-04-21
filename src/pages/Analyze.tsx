@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sparkles, Wand2, Link2, FileText, ArrowRight, Loader2, GraduationCap, Briefcase, Globe2 } from "lucide-react";
 import { Logo } from "@/components/jobguard/Logo";
@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { analyzeJob, improvePrompt } from "@/lib/jobguard";
+import { improvePrompt } from "@/lib/jobguard";
+import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const presets = [
@@ -42,7 +43,24 @@ const Analyze = () => {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [improving, setImproving] = useState(false);
+  const [loadingStep, setLoadingStep] = useState(0);
   const navigate = useNavigate();
+
+  const loadingMessages = [
+    "Scanning signals…",
+    "Checking recruiter patterns…",
+    "Verifying claims…",
+    "Cross-checking Indian market data…",
+  ];
+
+  useEffect(() => {
+    if (!loading) return;
+    setLoadingStep(0);
+    const id = setInterval(() => {
+      setLoadingStep((s) => (s + 1) % loadingMessages.length);
+    }, 1400);
+    return () => clearInterval(id);
+  }, [loading]);
 
   const handleImprove = () => {
     const raw = tab === "text" ? text : url;
@@ -59,18 +77,26 @@ const Analyze = () => {
     }, 600);
   };
 
-  const handleInvestigate = () => {
+  const handleInvestigate = async () => {
     const raw = tab === "text" ? text : url;
     if (!raw.trim()) {
       toast.error("Paste a job description or URL to analyze.");
       return;
     }
     setLoading(true);
-    setTimeout(() => {
-      const result = analyzeJob(raw);
-      sessionStorage.setItem("jobguard:result", JSON.stringify(result));
+    try {
+      const { data, error } = await supabase.functions.invoke("analyze-job", {
+        body: { input: raw },
+      });
+      if (error) throw error;
+      if (!data || data.error) throw new Error(data?.error ?? "Analysis failed");
+      sessionStorage.setItem("jobguard:result", JSON.stringify(data));
       navigate("/result");
-    }, 1100);
+    } catch (e) {
+      console.error(e);
+      toast.error("Unable to analyze right now. Please try again.");
+      setLoading(false);
+    }
   };
 
   return (
@@ -150,7 +176,7 @@ const Analyze = () => {
                 className="flex-1 rounded-full h-12 bg-foreground hover:bg-foreground/90 text-background shadow-glow font-medium text-base group"
               >
                 {loading ? (
-                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Investigating…</>
+                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {loadingMessages[loadingStep]}</>
                 ) : (
                   <>Investigate Now <ArrowRight className="ml-1 w-4 h-4 group-hover:translate-x-0.5 transition-transform" /></>
                 )}

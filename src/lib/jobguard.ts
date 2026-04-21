@@ -2,9 +2,11 @@ export type Verdict = "legit" | "suspicious" | "scam";
 
 export interface AnalysisResult {
   verdict: Verdict;
+  verdictLabel?: string;
   trustScore: number;
   redFlags: { title: string; detail: string; severity: "low" | "med" | "high" }[];
   reality: { label: string; expected: string; offered: string; gap: string }[];
+  recommendation?: string;
   summary: string;
   jobInput: string;
 }
