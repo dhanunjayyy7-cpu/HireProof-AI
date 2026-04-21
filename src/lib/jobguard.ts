@@ -132,11 +132,11 @@ export function analyzeJob(input: string): AnalysisResult {
 
   let summary = "";
   if (verdict === "scam") {
-    summary = `🚨 HIGH RISK SCAM detected. JobGuard flagged ${redFlags.length} critical red flag(s) including upfront fee patterns, unrealistic compensation, or premature ID requests. Trust score ${score}/100. Do NOT pay any money or share Aadhaar/PAN. Block the recruiter, report on cybercrime.gov.in, and alert your peers.`;
+    summary = `🚨 HIGH RISK SCAM detected. HireProof flagged ${redFlags.length} critical red flag(s) including upfront fee patterns, unrealistic compensation, or premature ID requests. Trust score ${score}/100. Do NOT pay any money or share Aadhaar/PAN. Block the recruiter, report on cybercrime.gov.in, and alert your peers.`;
   } else if (verdict === "suspicious") {
-    summary = `⚠️ SUSPICIOUS opportunity. JobGuard found ${redFlags.length} concern(s) — mostly around vague hiring process, unverifiable company, or pressure tactics. Trust score ${score}/100. Before proceeding: verify recruiter on LinkedIn, search company on MCA portal, and refuse any payment requests.`;
+    summary = `⚠️ SUSPICIOUS opportunity. HireProof found ${redFlags.length} concern(s) — mostly around vague hiring process, unverifiable company, or pressure tactics. Trust score ${score}/100. Before proceeding: verify recruiter on LinkedIn, search company on MCA portal, and refuse any payment requests.`;
   } else {
-    summary = `✅ Looks LEGIT. JobGuard found no major scam patterns. Trust score ${score}/100. Still recommended: confirm offer on company letterhead, verify HR email domain matches the company website, and never share Aadhaar/PAN until after signing.`;
+    summary = `✅ Looks LEGIT. HireProof found no major scam patterns. Trust score ${score}/100. Still recommended: confirm offer on company letterhead, verify HR email domain matches the company website, and never share Aadhaar/PAN until after signing.`;
   }
 
   return { verdict, trustScore: score, redFlags, reality, summary, jobInput: input };
