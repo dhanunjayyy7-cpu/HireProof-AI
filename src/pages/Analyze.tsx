@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sparkles, Wand2, Link2, FileText, ArrowRight, Loader2, GraduationCap, Briefcase, Globe2 } from "lucide-react";
-import { Navbar } from "@/components/jobguard/Navbar";
 import { Footer } from "@/components/jobguard/Footer";
+import { Logo } from "@/components/jobguard/Logo";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
@@ -13,19 +14,19 @@ const presets = [
   {
     icon: GraduationCap,
     audience: "For Students",
-    text: "I got internship offer asking ₹2,500 registration fee for training certificate before joining. Check if scam.",
+    text: "I received an internship offer asking ₹2,500 registration fee before joining. Check if this is genuine or a scam.",
     tone: "brand",
   },
   {
     icon: Briefcase,
     audience: "For Job Seekers",
-    text: "This company offers ₹12 LPA fresher package with no technical interview, immediate joining via WhatsApp. Verify legitimacy.",
+    text: "This company is offering ₹12 LPA for a fresher role with quick joining. Analyze whether this looks trustworthy.",
     tone: "warning",
   },
   {
     icon: Globe2,
     audience: "For Internship Seekers",
-    text: "Remote internship asking Aadhaar and PAN card before interview, urgent hiring with limited seats. Analyze risk.",
+    text: "Remote internship asks for Aadhaar, PAN card, and urgent confirmation before interview. Check all risks.",
     tone: "danger",
   },
 ] as const;
@@ -75,14 +76,19 @@ const Analyze = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Navbar />
+      {/* Minimal top bar (no global navbar on this page) */}
+      <div className="absolute top-5 left-5 md:left-8 z-10">
+        <Link to="/" className="flex items-center gap-2 group">
+          <Logo />
+        </Link>
+      </div>
 
-      <main className="flex-1 pt-28 md:pt-36 pb-16 bg-gradient-hero">
+      <main className="flex-1 pt-20 md:pt-28 pb-16 bg-gradient-hero">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center mb-10 md:mb-14 animate-fade-in-up">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-background/80 backdrop-blur border border-border shadow-soft mb-5">
               <Sparkles className="w-3.5 h-3.5 text-brand" />
-              <span className="text-xs font-semibold">Free · No signup · India-focused AI</span>
+              <span className="text-[11px] md:text-xs font-semibold uppercase tracking-[0.18em]">Free · No signup · India-focused AI</span>
             </div>
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground text-balance">
               Investigate any job offer in <span className="text-gradient">10 seconds.</span>
@@ -156,7 +162,7 @@ const Analyze = () => {
           {/* SECTION 2 — PRESETS */}
           <div className="max-w-5xl mx-auto mt-16 md:mt-20">
             <div className="text-center mb-8">
-              <p className="text-sm font-semibold uppercase tracking-wider text-brand mb-2">Ready-made prompts</p>
+              <p className="text-xs md:text-sm font-semibold uppercase tracking-[0.22em] text-brand mb-3">Ready-Made Prompts</p>
               <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                 Not sure what to ask? Try one of these.
               </h2>
@@ -178,7 +184,7 @@ const Analyze = () => {
                   <div className={`w-11 h-11 rounded-2xl flex items-center justify-center mb-4 ${toneMap[p.tone]}`}>
                     <p.icon className="w-5 h-5" strokeWidth={2.2} />
                   </div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">{p.audience}</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-brand mb-2">{p.audience.replace("For ", "FOR ")}</p>
                   <p className="text-foreground font-medium leading-relaxed">"{p.text}"</p>
                   <p className="mt-4 text-sm text-brand font-medium inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                     Use this prompt <ArrowRight className="w-3.5 h-3.5" />
