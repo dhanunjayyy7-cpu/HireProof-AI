@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import logo from "@/assets/hireproof-logo.png";
 import {
   ArrowRight, Sparkles, ShieldAlert, Database, TrendingUp, Building2,
   Clipboard, Brain, BadgeCheck, CheckCircle2,
@@ -187,7 +188,7 @@ const Index = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-brand/20 blur-2xl rounded-full opacity-60 group-hover:opacity-90 transition-opacity" />
               <img
-                src={(new URL('../assets/hireproof-logo.png', import.meta.url)).href}
+                src={logo}
                 alt="HireProof"
                 className="relative w-16 h-16 md:w-20 md:h-20 object-contain"
               />
