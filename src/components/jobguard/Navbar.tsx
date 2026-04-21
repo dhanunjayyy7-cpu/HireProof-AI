@@ -36,15 +36,15 @@ export const Navbar = () => {
   };
 
   return (
-    <header className="fixed top-3 md:top-5 left-0 right-0 z-50 px-3 md:px-6 pointer-events-none">
+    <header className="fixed top-3 md:top-5 left-0 right-0 z-50 px-3 md:px-6 pointer-events-none flex justify-center">
       <div
-        className={`pointer-events-auto mx-auto max-w-5xl rounded-full transition-all duration-500 ease-out ${
+        className={`pointer-events-auto inline-flex rounded-full transition-all duration-500 ease-out ${
           scrolled
-            ? "bg-[#111111] shadow-[0_8px_30px_rgba(0,0,0,0.18)] h-14"
-            : "bg-[#F2F2F2] h-16 md:h-[68px]"
+            ? "bg-[#111111] shadow-[0_8px_30px_rgba(0,0,0,0.18)] h-13"
+            : "bg-[#F2F2F2] h-14 md:h-15"
         }`}
       >
-        <div className="h-full flex items-center justify-between pl-4 pr-3 md:pl-6 md:pr-3">
+        <div className="h-full flex items-center gap-6 md:gap-10 pl-4 pr-2 md:pl-5 md:pr-2 py-2">
           {/* Brand */}
           <button
             onClick={() => navigate("/")}

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sparkles, Wand2, Link2, FileText, ArrowRight, Loader2, GraduationCap, Briefcase, Globe2 } from "lucide-react";
-import { Footer } from "@/components/jobguard/Footer";
 import { Logo } from "@/components/jobguard/Logo";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -195,8 +194,6 @@ const Analyze = () => {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 };

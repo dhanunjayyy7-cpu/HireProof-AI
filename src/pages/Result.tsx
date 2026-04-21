@@ -4,8 +4,7 @@ import {
   ShieldCheck, ShieldAlert, ShieldX, Copy, Check, ArrowLeft,
   AlertTriangle, TrendingUp, Sparkles, ArrowRight,
 } from "lucide-react";
-import { Navbar } from "@/components/jobguard/Navbar";
-import { Footer } from "@/components/jobguard/Footer";
+import { Logo } from "@/components/jobguard/Logo";
 import { Button } from "@/components/ui/button";
 import { AnalysisResult } from "@/lib/jobguard";
 import { toast } from "sonner";
@@ -88,9 +87,12 @@ Analyzed using HireProof — free AI platform helping users avoid scams, save ti
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Navbar />
+      {/* Standalone brand mark (no global navbar on this page) */}
+      <div className="absolute top-5 left-5 md:left-8 z-10">
+        <Logo />
+      </div>
 
-      <main className="flex-1 pt-28 md:pt-36 pb-16">
+      <main className="flex-1 pt-20 md:pt-28 pb-16">
         <div className="container">
           <Link to="/analyze" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors">
             <ArrowLeft className="w-4 h-4" /> Investigate another
@@ -244,8 +246,6 @@ Analyzed using HireProof — free AI platform helping users avoid scams, save ti
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 };
