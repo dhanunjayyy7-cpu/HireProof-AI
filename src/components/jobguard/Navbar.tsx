@@ -45,26 +45,18 @@ export const Navbar = () => {
         }`}
       >
         <div className="h-full flex items-center gap-6 md:gap-10 pl-4 pr-2 md:pl-5 md:pr-2 py-2">
-          {/* Brand */}
+          {/* Brand — circular logo only */}
           <button
             onClick={() => navigate("/")}
-            className="flex items-center gap-2.5 group"
+            className="flex items-center group"
             aria-label="HireProof home"
           >
-            <img
-              src={logo}
-              alt="HireProof"
-              className={`object-contain transition-all duration-500 ${
-                scrolled ? "w-7 h-7" : "w-8 h-8 md:w-9 md:h-9"
-              }`}
-            />
             <span
-              className={`font-bold tracking-tight transition-all duration-500 ${
-                scrolled ? "text-base text-white" : "text-lg md:text-xl text-[#111111]"
+              className={`rounded-full overflow-hidden bg-white ring-1 ring-black/5 shadow-soft flex items-center justify-center transition-all duration-500 ${
+                scrolled ? "w-8 h-8" : "w-9 h-9 md:w-10 md:h-10"
               }`}
-              style={{ fontFamily: "Inter, ui-sans-serif, system-ui" }}
             >
-              HireProof
+              <img src={logo} alt="HireProof" className="w-full h-full object-cover" />
             </span>
           </button>
 
