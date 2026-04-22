@@ -1,6 +1,11 @@
-import { corsHeaders } from "https://esm.sh/@supabase/supabase-js@2.95.0/cors";
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
+};
 
 const ANTHROPIC_API_KEY = Deno.env.get("ANTHROPIC_API_KEY");
+const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
 
 const SYSTEM_PROMPT = `You are an expert fake job and scam detection analyst for Indian students, freshers, and job seekers.
 
@@ -66,41 +71,76 @@ Deno.serve(async (req) => {
       );
     }
 
-    if (!ANTHROPIC_API_KEY) {
-      return new Response(
-        JSON.stringify({ ok: false, error: "AI provider not configured", fallback: true }),
-        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
-      );
-    }
-
     const userPrompt = `Investigate this opportunity and return the JSON described in the system instructions.\n\n── OPPORTUNITY ──\n${input.trim()}`;
 
-    const resp = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "x-api-key": ANTHROPIC_API_KEY,
-        "anthropic-version": "2023-06-01",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "claude-3-5-sonnet-20241022",
-        max_tokens: 1500,
-        system: SYSTEM_PROMPT,
-        messages: [{ role: "user", content: userPrompt }],
-      }),
-    });
+    let text = "";
+    let providerOk = false;
 
-    if (!resp.ok) {
-      const errText = await resp.text();
-      console.error("Anthropic error:", resp.status, errText);
+    // Try Anthropic first if configured
+    if (ANTHROPIC_API_KEY) {
+      try {
+        const resp = await fetch("https://api.anthropic.com/v1/messages", {
+          method: "POST",
+          headers: {
+            "x-api-key": ANTHROPIC_API_KEY,
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            model: "claude-3-5-sonnet-20241022",
+            max_tokens: 1500,
+            system: SYSTEM_PROMPT,
+            messages: [{ role: "user", content: userPrompt }],
+          }),
+        });
+        if (resp.ok) {
+          const data = await resp.json();
+          text = data?.content?.[0]?.text ?? "";
+          providerOk = !!text;
+        } else {
+          console.error("Anthropic error:", resp.status, await resp.text());
+        }
+      } catch (e) {
+        console.error("Anthropic exception:", e);
+      }
+    }
+
+    // Fallback to Lovable AI Gateway (Gemini)
+    if (!providerOk && LOVABLE_API_KEY) {
+      try {
+        const resp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${LOVABLE_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            model: "google/gemini-2.5-flash",
+            messages: [
+              { role: "system", content: SYSTEM_PROMPT },
+              { role: "user", content: userPrompt },
+            ],
+          }),
+        });
+        if (resp.ok) {
+          const data = await resp.json();
+          text = data?.choices?.[0]?.message?.content ?? "";
+          providerOk = !!text;
+        } else {
+          console.error("Lovable AI error:", resp.status, await resp.text());
+        }
+      } catch (e) {
+        console.error("Lovable AI exception:", e);
+      }
+    }
+
+    if (!providerOk) {
       return new Response(
-        JSON.stringify({ ok: false, error: "ai_provider_error", status: resp.status, fallback: true }),
+        JSON.stringify({ ok: false, error: "ai_provider_error", fallback: true }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
       );
     }
 
-    const data = await resp.json();
-    const text: string = data?.content?.[0]?.text ?? "";
     let parsed: any;
     try {
       parsed = extractJson(text);
