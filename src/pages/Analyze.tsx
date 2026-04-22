@@ -89,7 +89,7 @@ const Analyze = () => {
         body: { input: raw },
       });
       if (error) throw error;
-      if (!data || data.error) throw new Error(data?.error ?? "Analysis failed");
+      if (!data || data.fallback || data.error) throw new Error(data?.error ?? "Analysis failed");
       sessionStorage.setItem("jobguard:result", JSON.stringify(data));
       navigate("/result");
     } catch (e) {
