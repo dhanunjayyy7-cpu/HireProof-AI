@@ -21,6 +21,6 @@ HireProof is an AI-powered platform that helps students, freshers, and job seeke
 
 ## Live Demo
 
-(Add Vercel link here)
+hire-proof-ai.vercel.app
 
 
