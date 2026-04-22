@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import logo from "@/assets/hireproof-logo.png";
 import {
-  ArrowRight, Sparkles, ShieldAlert, Database, TrendingUp, Building2,
+  ArrowRight, ShieldAlert, Database, TrendingUp, Building2,
   Clipboard, Brain, BadgeCheck, CheckCircle2,
 } from "lucide-react";
 import { Navbar } from "@/components/jobguard/Navbar";
@@ -70,11 +70,6 @@ const Index = () => {
         <div className="absolute inset-0 grid-pattern pointer-events-none" />
         <div className="container relative">
           <div className="max-w-3xl mx-auto text-center animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-background/80 backdrop-blur border border-border shadow-soft mb-6">
-              <Sparkles className="w-3.5 h-3.5 text-brand" />
-              <span className="text-[11px] md:text-xs font-semibold text-foreground uppercase tracking-[0.18em]">AI-Powered Scam Investigation · Free For Students</span>
-            </div>
-
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground text-balance leading-[1.05]">
               Don't let a fake job <span className="text-gradient">steal your future.</span>
             </h1>
