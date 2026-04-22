@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Sparkles, Wand2, Link2, FileText, ArrowRight, Loader2, GraduationCap, Briefcase, Globe2 } from "lucide-react";
+import { Wand2, Link2, FileText, ArrowRight, Loader2, GraduationCap, Briefcase, Globe2 } from "lucide-react";
 import { Logo } from "@/components/jobguard/Logo";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { improvePrompt } from "@/lib/jobguard";
+import { improvePrompt, analyzeJob } from "@/lib/jobguard";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -94,8 +94,18 @@ const Analyze = () => {
       navigate("/result");
     } catch (e) {
       console.error(e);
-      toast.error("Unable to analyze right now. Please try again.");
-      setLoading(false);
+      // Graceful fallback: never crash the demo — use local heuristic analyzer
+      try {
+        const fallback = analyzeJob(raw);
+        sessionStorage.setItem("jobguard:result", JSON.stringify(fallback));
+        toast.message("Showing offline analysis", {
+          description: "Live AI is unavailable — results based on local scam heuristics.",
+        });
+        navigate("/result");
+      } catch {
+        toast.error("Unable to analyze right now. Please try again.");
+        setLoading(false);
+      }
     }
   };
 
@@ -111,10 +121,6 @@ const Analyze = () => {
       <main className="flex-1 pt-20 md:pt-28 pb-16 bg-gradient-hero">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center mb-10 md:mb-14 animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-background/80 backdrop-blur border border-border shadow-soft mb-5">
-              <Sparkles className="w-3.5 h-3.5 text-brand" />
-              <span className="text-[11px] md:text-xs font-semibold uppercase tracking-[0.18em]">Free · No signup · India-focused AI</span>
-            </div>
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground text-balance">
               Investigate any job offer in <span className="text-gradient">10 seconds.</span>
             </h1>
