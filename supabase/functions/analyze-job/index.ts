@@ -58,18 +58,18 @@ Deno.serve(async (req) => {
   }
 
   try {
-    if (!ANTHROPIC_API_KEY) {
-      return new Response(
-        JSON.stringify({ error: "ANTHROPIC_API_KEY is not configured" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } },
-      );
-    }
-
     const { input } = await req.json();
     if (!input || typeof input !== "string" || input.trim().length < 5) {
       return new Response(
         JSON.stringify({ error: "Please provide a longer job description or URL." }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+      );
+    }
+
+    if (!ANTHROPIC_API_KEY) {
+      return new Response(
+        JSON.stringify({ ok: false, error: "AI provider not configured", fallback: true }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
       );
     }
 
@@ -94,8 +94,8 @@ Deno.serve(async (req) => {
       const errText = await resp.text();
       console.error("Anthropic error:", resp.status, errText);
       return new Response(
-        JSON.stringify({ error: "Unable to analyze right now. Please try again." }),
-        { status: 502, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+        JSON.stringify({ ok: false, error: "ai_provider_error", status: resp.status, fallback: true }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
       );
     }
 
@@ -107,8 +107,8 @@ Deno.serve(async (req) => {
     } catch (e) {
       console.error("JSON parse failed:", text);
       return new Response(
-        JSON.stringify({ error: "Unable to analyze right now. Please try again." }),
-        { status: 502, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+        JSON.stringify({ ok: false, error: "parse_failed", fallback: true }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
       );
     }
 
@@ -148,8 +148,8 @@ Deno.serve(async (req) => {
   } catch (err) {
     console.error("analyze-job error:", err);
     return new Response(
-      JSON.stringify({ error: "Unable to analyze right now. Please try again." }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+      JSON.stringify({ ok: false, error: "runtime_error", fallback: true }),
+      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
     );
   }
 });
